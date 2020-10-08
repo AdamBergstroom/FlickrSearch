@@ -7,6 +7,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Query
 import java.util.concurrent.TimeUnit
 
 private const val FLICKR_API_KEY = "9b886a0a77ca671fe5f8f4819d3c5109"
@@ -41,6 +42,6 @@ object WebClient {
 
 interface ApiService {
 
-    @GET("?method=flickr.photos.search&format=json&nojsoncallback=1&text=öl&api_key=$FLICKR_API_KEY")
-    suspend fun fetchImages(): SearchResponseData
+    @GET("?method=flickr.photos.search&format=json&nojsoncallback=1&api_key=$FLICKR_API_KEY")
+    suspend fun fetchImages(@Query(value = "text") searchTerm: String): SearchResponseData
 }

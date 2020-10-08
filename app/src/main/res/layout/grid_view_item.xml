@@ -4,15 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools">
     <data>
         <variable
-            name="property"
-            type="se.knowit.flickrsearch.network.SearchResponseData" />
+            name="photo"
+            type="se.knowit.flickrsearch.entities.Photo" />
     </data>
     <ImageView
-        android:id="@+id/mars_image"
+        android:id="@+id/photo_image"
         android:layout_width="match_parent"
         android:layout_height="170dp"
         android:scaleType="centerCrop"
         android:adjustViewBounds="true"
         android:padding="2dp"
+        app:imageUrl="@{photo.url}"
         tools:src="@tools:sample/backgrounds/scenic"/>
 </layout>

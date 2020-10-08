@@ -1,7 +1,9 @@
 package se.knowit.flickrsearch.views.overview
 
+import android.content.Context
 import android.os.Bundle
 import android.view.*
+import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import se.knowit.flickrsearch.databinding.FragmentOverviewBinding
@@ -22,7 +24,11 @@ class OverviewFragment : Fragment() {
         // Giving the binding access to the OverviewViewModel
         binding.viewModel = viewModel
 
+        // Connect the adapter to binding.
+        binding.photosGrid.adapter = PhotoGridAdapter()
+
         setHasOptionsMenu(true)
         return binding.root
     }
+    
 }
