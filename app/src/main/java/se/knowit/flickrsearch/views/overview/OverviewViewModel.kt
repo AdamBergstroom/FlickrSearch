@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import se.knowit.flickrsearch.entities.Photo
+import se.knowit.flickrsearch.models.Photo
 import se.knowit.flickrsearch.network.WebClient
 
 @Suppress("UNUSED_PARAMETER")

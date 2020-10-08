@@ -28,15 +28,18 @@
 
         <TextView
             android:id="@+id/textView"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
             android:layout_marginBottom="32dp"
             android:fontFamily="sans-serif-medium"
-            app:photoTitle="@{photoDetailViewModel.photoDetail.title}"
-            tools:text="Title"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:photoTitle="@{photoDetailViewModel.photoDetail.title}"
+            tools:text="Title" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

@@ -5,7 +5,7 @@
     <data>
         <variable
             name="photo"
-            type="se.knowit.flickrsearch.entities.Photo" />
+            type="se.knowit.flickrsearch.models.Photo" />
 
         <variable
             name="clickListener"

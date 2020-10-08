@@ -1,4 +1,4 @@
-package se.knowit.flickrsearch.entities
+package se.knowit.flickrsearch.models
 
 data class Photo(
     val id: String,

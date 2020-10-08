@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import se.knowit.flickrsearch.databinding.GridViewItemBinding
-import se.knowit.flickrsearch.entities.Photo
+import se.knowit.flickrsearch.models.Photo
 
 /**
  * PhotoGridAdapter implements a [RecyclerView] and [ListAdapter] which uses Data Binding to
