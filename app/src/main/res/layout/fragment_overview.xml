@@ -25,6 +25,7 @@
             android:autofillHints="@string/search_for_photos"
             android:hint="@string/search_for_photos"
             android:inputType="text"
+            android:onTextChanged="@{viewModel::onPasswordTextChanged}"
             app:layout_constraintEnd_toStartOf="@+id/search_query_btn"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -33,6 +34,7 @@
             android:id="@+id/search_query_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="@{() -> viewModel.getImages()}"
             android:layout_alignParentEnd="true"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"

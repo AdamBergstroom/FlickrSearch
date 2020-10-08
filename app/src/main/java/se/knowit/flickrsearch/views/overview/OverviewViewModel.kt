@@ -1,8 +1,5 @@
 package se.knowit.flickrsearch.views.overview
 
-import android.content.Context
-import android.view.View
-import android.view.inputmethod.InputMethodManager
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,6 +8,7 @@ import kotlinx.coroutines.launch
 import se.knowit.flickrsearch.entities.Photo
 import se.knowit.flickrsearch.network.WebClient
 
+@Suppress("UNUSED_PARAMETER")
 class OverviewViewModel : ViewModel() {
     private val mutablePhotosLiveData = MutableLiveData<List<Photo>>()
     val photos: LiveData<List<Photo>> = mutablePhotosLiveData
@@ -19,19 +17,23 @@ class OverviewViewModel : ViewModel() {
     val navigateToPhotoDetail
         get() = _navigateToPhotoDetail
 
+    private val _query = MutableLiveData<String>()
+    private val query
+        get() = _query
+
     init {
+        query.value = "inspiration"
         getImages()
     }
 
-    private fun getImages() {
-        /*
-        if (searchTerm.isBlank()) {
-            mutablePhotosLiveData.postValue(emptyList())
-            return
-        }
-         */
+    /**
+     *  Fetch images from the Flickr api.
+     *
+     *  This method is called in OverViewViewModel init and when pressing the search button in fragment_overview.xml
+     */
+    fun getImages() {
         viewModelScope.launch {
-            val searchResponse = WebClient.client.fetchImages("animal")
+            val searchResponse = WebClient.client.fetchImages(_query.value.toString())
             val photosList = searchResponse.photos.photo.map { photo ->
                 Photo(
                     id = photo.id,
@@ -41,6 +43,11 @@ class OverviewViewModel : ViewModel() {
             }
             mutablePhotosLiveData.postValue(photosList)
         }
+    }
+
+    fun onPasswordTextChanged(s: CharSequence,start: Int,before : Int,
+                              count :Int){
+        _query.value = s.toString()
     }
 
     fun onPhotoClicked(photo: Photo) {
