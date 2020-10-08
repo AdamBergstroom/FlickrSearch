@@ -6,14 +6,38 @@
         <variable
             name="photo"
             type="se.knowit.flickrsearch.entities.Photo" />
+
+        <variable
+            name="clickListener"
+            type="se.knowit.flickrsearch.views.overview.PhotoListener" />
     </data>
-    <ImageView
-        android:id="@+id/photo_image"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="170dp"
-        android:scaleType="centerCrop"
-        android:adjustViewBounds="true"
-        android:padding="2dp"
-        app:imageUrl="@{photo.url}"
-        tools:src="@tools:sample/backgrounds/scenic"/>
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:onClick="@{() -> clickListener.onClick(photo)}">
+
+        <ImageView
+            android:id="@+id/photo_image"
+            android:layout_width="match_parent"
+            android:layout_height="170dp"
+            android:scaleType="centerCrop"
+            android:adjustViewBounds="true"
+            android:padding="2dp"
+            app:imageUrl="@{photo.url}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/photo_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="@+id/photo_image"
+            app:layout_constraintStart_toStartOf="@+id/photo_image"
+            app:layout_constraintTop_toBottomOf="@+id/photo_image"
+            app:photoTitle="@{photo.title}" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

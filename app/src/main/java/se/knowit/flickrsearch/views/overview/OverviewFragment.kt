@@ -1,11 +1,11 @@
 package se.knowit.flickrsearch.views.overview
 
-import android.content.Context
 import android.os.Bundle
 import android.view.*
-import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import se.knowit.flickrsearch.databinding.FragmentOverviewBinding
 
 class OverviewFragment : Fragment() {
@@ -24,11 +24,27 @@ class OverviewFragment : Fragment() {
         // Giving the binding access to the OverviewViewModel
         binding.viewModel = viewModel
 
+        // Add an Observer on the state variable for Navigating when STOP button is pressed.
+        viewModel.navigateToPhotoDetail.observe(viewLifecycleOwner, Observer { photo ->
+            photo?.let {
+                this.findNavController().navigate(
+                    OverviewFragmentDirections
+                        .actionFragmentOverviewToFragmentPhotoDetail(photo.id, photo.url, photo.title))
+                // Reset state to make sure we only navigate once, even if the device
+                // has a configuration change.
+                viewModel.doneNavigated()
+            }
+        })
+
+        val adapter = PhotoGridAdapter(PhotoListener { photo ->
+            viewModel.onPhotoClicked(photo)
+        })
+
         // Connect the adapter to binding.
-        binding.photosGrid.adapter = PhotoGridAdapter()
+        binding.photosGrid.adapter = adapter
 
         setHasOptionsMenu(true)
         return binding.root
     }
-    
+
 }

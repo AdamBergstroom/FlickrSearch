@@ -12,7 +12,7 @@ import se.knowit.flickrsearch.entities.Photo
  * PhotoGridAdapter implements a [RecyclerView] and [ListAdapter] which uses Data Binding to
  * present a [List] of data.
  * */
-class PhotoGridAdapter : ListAdapter<Photo, PhotoGridAdapter.PhotoViewHolder>(DiffCallback) {
+class PhotoGridAdapter(private val photoListener: PhotoListener) : ListAdapter<Photo, PhotoGridAdapter.PhotoViewHolder>(DiffCallback) {
 
     /**
      * PhotoViewHolder that uses a binding to populate the images with every information needed.
@@ -21,8 +21,9 @@ class PhotoGridAdapter : ListAdapter<Photo, PhotoGridAdapter.PhotoViewHolder>(Di
      * This will secure correct view size measurements for each image.
      * */
     class PhotoViewHolder(private var binding: GridViewItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(photo: Photo){
+        fun bind(clickListener: PhotoListener, photo: Photo){
             binding.photo = photo
+            binding.clickListener = clickListener
             binding.executePendingBindings()
         }
     }
@@ -47,7 +48,7 @@ class PhotoGridAdapter : ListAdapter<Photo, PhotoGridAdapter.PhotoViewHolder>(Di
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): PhotoGridAdapter.PhotoViewHolder {
+    ): PhotoViewHolder {
         return PhotoViewHolder(GridViewItemBinding.inflate(LayoutInflater.from(parent.context)))
     }
 
@@ -57,8 +58,13 @@ class PhotoGridAdapter : ListAdapter<Photo, PhotoGridAdapter.PhotoViewHolder>(Di
      * List arrives from the app:listData property from fragment_overview.xml, where each item
      * is sent to their viewHolder.
      * */
-    override fun onBindViewHolder(holder: PhotoGridAdapter.PhotoViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: PhotoViewHolder, position: Int) {
         val photo = getItem(position)
-        holder.bind(photo)
+        holder.bind(photoListener,photo)
     }
+
+}
+
+class PhotoListener(val clickListener: (photo: Photo) -> Unit) {
+    fun onClick(photo: Photo) = clickListener(photo)
 }

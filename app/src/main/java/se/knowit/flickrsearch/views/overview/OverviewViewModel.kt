@@ -15,19 +15,23 @@ class OverviewViewModel : ViewModel() {
     private val mutablePhotosLiveData = MutableLiveData<List<Photo>>()
     val photos: LiveData<List<Photo>> = mutablePhotosLiveData
 
-    private val searchTerm = "Animals";
+    private val _navigateToPhotoDetail = MutableLiveData<Photo>()
+    val navigateToPhotoDetail
+        get() = _navigateToPhotoDetail
 
     init {
         getImages()
     }
 
     private fun getImages() {
+        /*
         if (searchTerm.isBlank()) {
             mutablePhotosLiveData.postValue(emptyList())
             return
         }
+         */
         viewModelScope.launch {
-            val searchResponse = WebClient.client.fetchImages(searchTerm)
+            val searchResponse = WebClient.client.fetchImages("animal")
             val photosList = searchResponse.photos.photo.map { photo ->
                 Photo(
                     id = photo.id,
@@ -37,5 +41,13 @@ class OverviewViewModel : ViewModel() {
             }
             mutablePhotosLiveData.postValue(photosList)
         }
+    }
+
+    fun onPhotoClicked(photo: Photo) {
+        _navigateToPhotoDetail.value = photo
+    }
+
+    fun doneNavigated() {
+        _navigateToPhotoDetail.value = null
     }
 }
