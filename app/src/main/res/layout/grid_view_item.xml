@@ -15,6 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:background="@color/white_color"
         android:onClick="@{() -> clickListener.onClick(photo)}">
 
         <ImageView
@@ -27,17 +28,8 @@
             app:imageUrl="@{photo.url}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/photo_title"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            app:layout_constraintEnd_toEndOf="@+id/photo_image"
-            app:layout_constraintStart_toStartOf="@+id/photo_image"
-            app:layout_constraintTop_toBottomOf="@+id/photo_image"
-            app:photoTitle="@{photo.title}" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="@string/image" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

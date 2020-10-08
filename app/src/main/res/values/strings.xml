@@ -6,4 +6,5 @@
     <string name="image">image</string>
     <string name="fragment_overview">OverviewFragment</string>
     <string name="search">Search</string>
+    <string name="flickr_search_app">Flickr Search App</string>
 </resources>

@@ -24,7 +24,7 @@ fun bindRecyclerView(recyclerView: RecyclerView, data: List<Photo>?) {
 /**
  * BindingAdapter for populating an image in grid_view_item.xml in app:imageUrl property.
  *
- * Uses the Glide library to load an image by URL into an [ImageView].
+ * Uses the Glide library to load and cache an image.
  * Shows a loading indicator when loading the image.
  */
 @BindingAdapter("imageUrl")
