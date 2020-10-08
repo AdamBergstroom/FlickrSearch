@@ -7,4 +7,5 @@
     <string name="fragment_overview">OverviewFragment</string>
     <string name="search">Search</string>
     <string name="flickr_search_app">Flickr Search App</string>
+    <string name="found_0">Found: 0</string>
 </resources>

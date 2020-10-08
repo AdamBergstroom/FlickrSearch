@@ -1,5 +1,6 @@
 package se.knowit.flickrsearch
 
+import android.annotation.SuppressLint
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.net.toUri
@@ -40,8 +41,16 @@ fun bindImage(imgView: ImageView, imgUrl: String?) {
     }
 }
 
+@SuppressLint("SetTextI18n")
+@BindingAdapter("numberOfPhotosFound")
+fun TextView.setNumberOfPhotosFound(data: List<Photo>?) {
+    data.let {
+        text = "Found ${data?.size.toString()} photos"
+    }
+}
+
 @BindingAdapter("photoTitle")
-fun TextView.setSleepQualityString(title: String) {
+fun TextView.setPhotoTitle(title: String) {
     title.let {
         text = title
     }
