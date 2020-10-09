@@ -31,7 +31,6 @@ class OverviewViewModel : ViewModel() {
 
     init {
         setProgressbarStatus(false)
-        query.value = "inspiration"
         getImages()
     }
 
@@ -44,6 +43,9 @@ class OverviewViewModel : ViewModel() {
         viewModelScope.launch {
             try {
                 setProgressbarStatus(true)
+                if(query.value == "" || query.value == null){
+                    _query.value = "inspiration"
+                }
                 val searchResponse = WebClient.client.fetchImages(_query.value.toString())
                 val photosList = searchResponse.photos.photo.map { photo ->
                     Photo(
