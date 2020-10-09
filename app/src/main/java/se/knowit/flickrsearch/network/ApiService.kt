@@ -11,7 +11,7 @@ import retrofit2.http.Query
 import java.util.concurrent.TimeUnit
 
 private const val FLICKR_API_KEY = "9b886a0a77ca671fe5f8f4819d3c5109"
-private const val BASE_URL = "https://api.flickr.com/services/rest/"
+private const val BASE_URL = "https://www.flickr.com/services/rest/"
 private const val CONNECTION_TIMEOUT_MS: Long = 10
 
 /**
@@ -42,6 +42,12 @@ object WebClient {
 
 interface ApiService {
 
+    /**
+     * See documentation from Flickr API in order to setup the query:
+     *  Requesting rest format - https://www.flickr.com/services/api/request.rest.html
+     *  Reqquesting json format - https://www.flickr.com/services/api/response.json.html
+     *  Search for photos - https://www.flickr.com/services/api/flickr.photos.search.html
+     */
     @GET("?method=flickr.photos.search&format=json&nojsoncallback=1&api_key=$FLICKR_API_KEY")
     suspend fun fetchImages(@Query(value = "text") searchTerm: String): SearchResponseData
 }

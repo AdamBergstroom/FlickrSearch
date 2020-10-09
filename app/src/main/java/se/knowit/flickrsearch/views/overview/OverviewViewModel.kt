@@ -38,6 +38,11 @@ class OverviewViewModel : ViewModel() {
             val photosList = searchResponse.photos.photo.map { photo ->
                 Photo(
                     id = photo.id,
+                    /**
+                     * Construct the source URL to a photo with its parameters.
+                    * See documentation at: https://www.flickr.com/services/api/misc.urls.html
+                    * Disclaimer: "live" is not working. Using farm{value} instead. See here: https://stackoverflow.com/questions/1803310/how-to-get-static-image-url-from-flickr-url
+                    * */
                     url = "https://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}.jpg",
                     title = photo.title
                 )
