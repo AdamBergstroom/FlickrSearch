@@ -25,6 +25,10 @@ class OverviewViewModel : ViewModel() {
     val showProgressBar
         get() = _showProgressBar
 
+    private val _showSnackBarMessage = MutableLiveData<String>()
+    val showSnackBarMessage
+        get() = _showSnackBarMessage
+
     init {
         setProgressbarStatus(false)
         query.value = "inspiration"
@@ -33,9 +37,7 @@ class OverviewViewModel : ViewModel() {
 
     /**
      *  Fetch images from the Flickr api.
-     *
      *  Use viewModelScope (CoroutineScope) to cancel request if viewModel is cleared out.
-     *
      *  This method is called in OverViewViewModel init and when pressing the search button in fragment_overview.xml
      */
     fun getImages() {
@@ -60,6 +62,7 @@ class OverviewViewModel : ViewModel() {
             }
             catch (e:Exception){
                 setProgressbarStatus(false)
+                showSnackBarMessage()
                 println(e.message)
             }
         }
@@ -79,11 +82,14 @@ class OverviewViewModel : ViewModel() {
     }
 
     private fun setProgressbarStatus(status:Boolean){
-        val showStatus = if(status){
-            0
-        } else {
-            1
-        }
         _showProgressBar.value = status
+    }
+
+    private fun showSnackBarMessage(){
+        showSnackBarMessage.value = "Could not retrieve data right now"
+    }
+
+    fun turnOfSnackBarMessage(){
+        showSnackBarMessage.value = null
     }
 }

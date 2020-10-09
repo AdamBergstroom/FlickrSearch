@@ -14,7 +14,6 @@ class MainActivity : AppCompatActivity() {
 
     /**
      * Automatically detect and close keyboard when a touch is interacted with the screen.
-     *
      * Uses Context together with InputMethodManager to access the keyboard state.
      */
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {

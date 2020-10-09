@@ -1,11 +1,14 @@
 package se.knowit.flickrsearch.views.overview
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.*
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.Snackbar
 import se.knowit.flickrsearch.databinding.FragmentOverviewBinding
 
 class OverviewFragment : Fragment() {
@@ -23,6 +26,10 @@ class OverviewFragment : Fragment() {
 
         binding.viewModel = viewModel
 
+        /**
+         * Observe if navigateToPhotoDetail value is changed.
+         * Navigate to the detail fragment if clicked.
+         */
         viewModel.navigateToPhotoDetail.observe(viewLifecycleOwner, Observer { photo ->
             photo?.let {
                 this.findNavController().navigate(
@@ -31,6 +38,26 @@ class OverviewFragment : Fragment() {
                 // Reset state to make sure we only navigate once, even if the device
                 // has a configuration change.
                 viewModel.doneNavigated()
+            }
+        })
+
+        /***
+         * Observe if showSnackBarMessage is changed.
+         * Show a snackBar if fetching data failed.
+         */
+        viewModel.showSnackBarMessage.observe(viewLifecycleOwner, Observer { message ->
+            message?.let{
+                val snackBar = Snackbar.make(
+                    view!!, message,
+                    Snackbar.LENGTH_LONG
+                ).setAction("Action", null)
+                snackBar.setActionTextColor(Color.WHITE)
+                val snackBarView = snackBar.view
+                snackBarView.setBackgroundColor(Color.BLACK)
+                val textView = snackBarView.findViewById(com.google.android.material.R.id.snackbar_text) as TextView
+                textView.setTextColor(Color.WHITE)
+                snackBar.show()
+                viewModel.turnOfSnackBarMessage()
             }
         })
 

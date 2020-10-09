@@ -2,7 +2,6 @@ package se.knowit.flickrsearch.views.overview
 
 import android.widget.ImageView
 import android.widget.ProgressBar
-import android.widget.TextView
 import androidx.core.net.toUri
 import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
@@ -43,6 +42,10 @@ fun bindRecyclerView(recyclerView: RecyclerView, data: List<Photo>?) {
     adapter.submitList(data)
 }
 
+/**
+ * Show a progressBar spinner when clicking on Search Button.
+ * Will be removed when search is successful or if a search failed.
+ */
 @BindingAdapter("showProgressbar")
 fun bindProgressBar(progressBar: ProgressBar, status: Boolean) {
     status.let {
