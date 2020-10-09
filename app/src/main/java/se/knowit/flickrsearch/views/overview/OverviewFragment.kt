@@ -21,10 +21,8 @@ class OverviewFragment : Fragment() {
         // Allows Data Binding to Observe LiveData with the lifecycle of this Fragment
         binding.lifecycleOwner = this
 
-        // Giving the binding access to the OverviewViewModel
         binding.viewModel = viewModel
 
-        // Add an Observer on the state variable for Navigating when STOP button is pressed.
         viewModel.navigateToPhotoDetail.observe(viewLifecycleOwner, Observer { photo ->
             photo?.let {
                 this.findNavController().navigate(

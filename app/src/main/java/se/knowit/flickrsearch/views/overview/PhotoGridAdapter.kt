@@ -65,6 +65,9 @@ class PhotoGridAdapter(private val photoListener: PhotoListener) : ListAdapter<P
 
 }
 
+/**
+ * ClickListner that is being used in OverViewFragment.
+ */
 class PhotoListener(val clickListener: (photo: Photo) -> Unit) {
     fun onClick(photo: Photo) = clickListener(photo)
 }

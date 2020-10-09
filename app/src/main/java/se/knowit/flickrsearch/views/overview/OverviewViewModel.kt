@@ -1,6 +1,5 @@
 package se.knowit.flickrsearch.views.overview
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -8,10 +7,10 @@ import kotlinx.coroutines.launch
 import se.knowit.flickrsearch.models.Photo
 import se.knowit.flickrsearch.network.WebClient
 
-@Suppress("UNUSED_PARAMETER")
 class OverviewViewModel : ViewModel() {
-    private val mutablePhotosLiveData = MutableLiveData<List<Photo>>()
-    val photos: LiveData<List<Photo>> = mutablePhotosLiveData
+    private val _photos = MutableLiveData<List<Photo>>()
+    val photos
+        get() = _photos
 
     private val _navigateToPhotoDetail = MutableLiveData<Photo>()
     val navigateToPhotoDetail
@@ -29,6 +28,8 @@ class OverviewViewModel : ViewModel() {
     /**
      *  Fetch images from the Flickr api.
      *
+     *  Use viewModelScope (CoroutineScope) to cancel request if viewModel is cleared out.
+     *
      *  This method is called in OverViewViewModel init and when pressing the search button in fragment_overview.xml
      */
     fun getImages() {
@@ -41,7 +42,7 @@ class OverviewViewModel : ViewModel() {
                     title = photo.title
                 )
             }
-            mutablePhotosLiveData.postValue(photosList)
+            _photos.postValue(photosList)
         }
     }
 
