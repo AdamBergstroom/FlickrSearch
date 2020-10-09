@@ -48,6 +48,6 @@ interface ApiService {
      *  Reqquesting json format - https://www.flickr.com/services/api/response.json.html
      *  Search for photos - https://www.flickr.com/services/api/flickr.photos.search.html
      */
-    @GET("?method=flickr.photos.search&format=json&nojsoncallback=1&api_key=$FLICKR_API_KEY")
+    @GET("?method=flickr.photos.search&format=json&nojsoncallback=1&per_page=50&api_key=$FLICKR_API_KEY")
     suspend fun fetchImages(@Query(value = "text") searchTerm: String): SearchResponseData
 }
