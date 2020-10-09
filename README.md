@@ -2,7 +2,7 @@
 
 ## About this app
 * This app can be used to query photos from Flickrs API.
-* Simple type a query that you are looking for inside the search field and press the search button.
+* Simply type a query that you are looking for inside the search field and press the search button.
 * If you find an interesting photo you can click on it to inspect the photo more and see content information about it.
 
 ## Technology choice and motivation ##
