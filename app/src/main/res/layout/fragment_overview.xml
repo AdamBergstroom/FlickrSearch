@@ -60,8 +60,10 @@
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintBottom_toTopOf="@+id/textView2"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/search_box"
+            app:layout_constraintVertical_bias="0.0"
             app:listData="@{viewModel.photos}"
             app:spanCount="2"
             tools:itemCount="6"
@@ -77,6 +79,17 @@
             app:numberOfPhotosFound="@{viewModel.photos}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:showProgressbar="@{viewModel.showProgressBar}"
+            app:layout_constraintBottom_toBottomOf="@+id/photos_grid"
+            app:layout_constraintEnd_toEndOf="@+id/photos_grid"
+            app:layout_constraintStart_toStartOf="@+id/photos_grid"
+            app:layout_constraintTop_toTopOf="@+id/photos_grid" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

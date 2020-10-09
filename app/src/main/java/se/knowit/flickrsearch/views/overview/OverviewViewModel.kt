@@ -21,7 +21,12 @@ class OverviewViewModel : ViewModel() {
     private val query
         get() = _query
 
+    private val _showProgressBar = MutableLiveData<Boolean>()
+    val showProgressBar
+        get() = _showProgressBar
+
     init {
+        setProgressbarStatus(false)
         query.value = "inspiration"
         getImages()
     }
@@ -36,6 +41,7 @@ class OverviewViewModel : ViewModel() {
     fun getImages() {
         viewModelScope.launch {
             try {
+                setProgressbarStatus(true)
                 val searchResponse = WebClient.client.fetchImages(_query.value.toString())
                 val photosList = searchResponse.photos.photo.map { photo ->
                     Photo(
@@ -50,8 +56,10 @@ class OverviewViewModel : ViewModel() {
                     )
                 }
                 _photos.postValue(photosList)
+                setProgressbarStatus(false)
             }
             catch (e:Exception){
+                setProgressbarStatus(false)
                 println(e.message)
             }
         }
@@ -68,5 +76,14 @@ class OverviewViewModel : ViewModel() {
 
     fun doneNavigated() {
         _navigateToPhotoDetail.value = null
+    }
+
+    private fun setProgressbarStatus(status:Boolean){
+        val showStatus = if(status){
+            0
+        } else {
+            1
+        }
+        _showProgressBar.value = status
     }
 }

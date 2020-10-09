@@ -1,7 +1,10 @@
 package se.knowit.flickrsearch.views.overview
 
 import android.widget.ImageView
+import android.widget.ProgressBar
+import android.widget.TextView
 import androidx.core.net.toUri
+import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -38,4 +41,11 @@ fun bindImage(imgView: ImageView, imgUrl: String?) {
 fun bindRecyclerView(recyclerView: RecyclerView, data: List<Photo>?) {
     val adapter = recyclerView.adapter as PhotoGridAdapter
     adapter.submitList(data)
+}
+
+@BindingAdapter("showProgressbar")
+fun bindProgressBar(progressBar: ProgressBar, status: Boolean) {
+    status.let {
+        progressBar.isVisible = status
+    }
 }
