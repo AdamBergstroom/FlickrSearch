@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import se.knowit.flickrsearch.models.Photo
 import se.knowit.flickrsearch.network.WebClient
+import java.lang.Exception
 
 class OverviewViewModel : ViewModel() {
     private val _photos = MutableLiveData<List<Photo>>()
@@ -34,20 +35,25 @@ class OverviewViewModel : ViewModel() {
      */
     fun getImages() {
         viewModelScope.launch {
-            val searchResponse = WebClient.client.fetchImages(_query.value.toString())
-            val photosList = searchResponse.photos.photo.map { photo ->
-                Photo(
-                    id = photo.id,
-                    /**
-                     * Construct the source URL to a photo with its parameters.
-                    * See documentation at: https://www.flickr.com/services/api/misc.urls.html
-                    * Disclaimer: "live" is not working. Using farm{value} instead. See here: https://stackoverflow.com/questions/1803310/how-to-get-static-image-url-from-flickr-url
-                    * */
-                    url = "https://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}.jpg",
-                    title = photo.title
-                )
+            try {
+                val searchResponse = WebClient.client.fetchImages(_query.value.toString())
+                val photosList = searchResponse.photos.photo.map { photo ->
+                    Photo(
+                        id = photo.id,
+                        /**
+                         * Construct the source URL to a photo with its parameters.
+                         * See documentation at: https://www.flickr.com/services/api/misc.urls.html
+                         * Disclaimer: "live" is not working. Using farm{value} instead. See here: https://stackoverflow.com/questions/1803310/how-to-get-static-image-url-from-flickr-url
+                         * */
+                        url = "https://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}.jpg",
+                        title = photo.title
+                    )
+                }
+                _photos.postValue(photosList)
             }
-            _photos.postValue(photosList)
+            catch (e:Exception){
+                println(e.message)
+            }
         }
     }
 

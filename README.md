@@ -5,6 +5,8 @@
 * Simply type a query that you are looking for inside the search field and press the search button.
 * If you find an interesting photo you can click on it to inspect the photo more and see content information about it.
 
+DISCLAIMER: Flickr API can sometimes be shutdown. This will be noticeable when you cannot make any queries from the search field.
+
 ## Technology choice and motivation ##
 
 # Kotlin
@@ -46,3 +48,4 @@ This app try to use material design as much as it can. There are material design
 * ViewModelFactory is used to securely navigate to another activity/fragment. It will throw exception if arguments does not match early in the code (at build time). This makes the app more secure to avoid errors and crashes when running the app and interacting with it.
 * Glide uses their own exception handling. However, they also provide the ability to insert an image/message if an error would occur. In this example the app will show a broken image if an error due happen.
 * Memory Leaks and app crashes are minimal since the ass is using ViewModels and Binding Adapters for "Separation of Concerns".
+* A try catch block is used when fetching data from the FLickr Api. If the service is down, the app wont crash.

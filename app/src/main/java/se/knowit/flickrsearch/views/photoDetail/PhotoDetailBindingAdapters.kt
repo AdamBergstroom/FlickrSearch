@@ -9,7 +9,8 @@ import se.knowit.flickrsearch.models.Photo
 @BindingAdapter("numberOfPhotosFound")
 fun TextView.setNumberOfPhotosFound(data: List<Photo>?) {
     data.let {
-        text = "Found ${data?.size.toString()} photos"
+        val numberOfphotos = data?.size ?: 0
+        text = "Found $numberOfphotos photos"
     }
 }
 
